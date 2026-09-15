@@ -1,8 +1,19 @@
 name: MCP Catalog Health Check
 
 on:
-  schedule:
-    - cron: "23 4 * * *"
+  # Schedule retired 2026-09-15 (routine conversion row #33).
+  # The check now runs on Senne's Mac as the Hermes cron job
+  # `mcp catalog health` (profile darryl, 23 4 * * * local).
+  # GitHub never ran it: scheduled workflows are disabled by default in forks,
+  # so this was registered nowhere and had never fired.
+  # Its issue-creating half is impossible here anyway — Issues are disabled on
+  # this repo, so the API returns 410 on POST /issues. The Mac job prints the
+  # findings instead.
+  # Kept runnable by hand via workflow_dispatch.
+  #
+  # ROLLBACK: restore the two lines below and drop the Mac job.
+  #   schedule:
+  #     - cron: "23 4 * * *"
   workflow_dispatch:
     inputs:
       max_github_repos:
